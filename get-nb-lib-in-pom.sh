@@ -16,3 +16,7 @@ done
 echo "####################### nombre total de la lib $1 : $nb_oc ################################## " >> resultat-$1.txt 
 
 #curl -k --header "PRIVATE-TOKEN: token-compte-perso-gitlab" "https://gitlab-larbotech.gao/api/v4/projects?search=bmsa_service_admin" | jq '.[0].id'
+
+
+#curl -k --header "Private-Token: tonToken" -X PUT https://gitlab-larbotech.gao/api/v4/projects/2332?visibility=internal
+# L'id 2332 est celui du projet : Settings => Genral => General project settings => Project ID
