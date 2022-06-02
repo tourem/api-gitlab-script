@@ -5,10 +5,11 @@ for project in ${projects[@]}; do
   ID=$(curl -k --header "PRIVATE-TOKEN: token-compte-perso-gitlab" "https://gitlab-larbotech.gao/api/v4/projects?search=$project" | jq '.[0].id')
   POM=$(curl -k --header "PRIVATE-TOKEN: token-compte-perso-gitlab" "https://gitlab-larbotech.gao/api/v4/projects/$ID/repository/files//pom.xml?ref=develop" | jq -r .content);
   NB=$(echo $POM | base64 -d | grep $1 | wc -l)
-  if [ $NB > 0 ]
+  if [ $NB -gt 0 ]
   then
-	nb_oc = $nb_oc + 1;
+	nb_oc=$((nb_oc+1))
 	echo "Identifiant du projet : $project ==> $ID -- Nombre de $1 dans le pom.xml : $NB" >> resultat-$1.txt 
+	echo "================================ $nb_oc"
   fi 
 done
 
