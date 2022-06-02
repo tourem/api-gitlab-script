@@ -1,5 +1,7 @@
 
-projects=("bmsa-services" "bmsa_service_admin" "bmsa_starter_security" "bmsa_caps_starter_web" "bmsa_library_jwt" "bmsa_library_linker" "bmsa-library-vip-health" "bmsa_service_authorization" "bmsa_service_cnt_visa" "bmsa_service_saa" "bmsa_service_sae" "indicator_scripts_saa" "bmsa_library_batch_computer_aut" "bmsa_service_admin" "bmsa-service-extract" "bmsa_service_health_checker" "bmsa_service_seek" "bmsa_heartbeat" "bmsa-internal-doc" "bmsa_tools" "bmsa_utils" "bmsa_service_guardian" "bmsa_service_proxy" "guardian_radius" "guardian_sso" "api_security_check" "bmsa-laas" "bmsa_batch_scheduler" "bmsa_jenkins_common_library")
+
+projects=("larbotech-services" "larbotech_service_admin" "larbotech_starter_security")
+
 nb_oc=0
 for project in ${projects[@]}; do
   ID=$(curl -k --header "PRIVATE-TOKEN: token-compte-perso-gitlab" "https://gitlab-larbotech.gao/api/v4/projects?search=$project" | jq '.[0].id')
