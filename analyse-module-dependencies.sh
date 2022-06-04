@@ -56,15 +56,15 @@ then
 		cloneAndSearchBasePackage "${http_url_to_repo}" "${project}"
 	done
 
+else
+   for project in ${PROJECTS[@]}; do
+	  http_url_to_repo=$(curl -k --header "Private-Token: $TOKEN" -X GET https://gitlab-larbotech.gao/api/v4/projects?search=$project | jq -r -c --arg project "$project" '[ .[] | select( .name==$project)] | .[].http_url_to_repo')
+
+	   echo "ddddddddddddddddddddddddddddddd  du projet $project dddddddddddddddddddddddddddddddddddddddddddd  repository : ${http_url_to_repo} "
+	  cloneAndSearchBasePackage "${http_url_to_repo}" "${project}"
+   done
 fi
-for project in ${PROJECTS[@]}; do
-  
-  http_url_to_repo=$(curl -k --header "Private-Token: $TOKEN" -X GET https://gitlab-larbotech.gao/api/v4/projects?search=$project | jq -r -c --arg project "$project" '[ .[] | select( .name==$project)] | .[].http_url_to_repo')
-  
-   echo "ddddddddddddddddddddddddddddddd  du projet $project dddddddddddddddddddddddddddddddddddddddddddd  repository : ${http_url_to_repo} "
-  cloneAndSearchBasePackage "${http_url_to_repo}" "${project}"
- 
-done
+
 
 
 
