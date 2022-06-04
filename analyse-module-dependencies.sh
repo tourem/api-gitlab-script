@@ -43,7 +43,7 @@ cd $tmp_dir
 
 if [ -z "$PROJECTS" ]; 
 then 
-	GROUP_ID=$(curl -k --header "Private-Token: $TOKEN" -X GET https://gitlab-larbotech.gao/api/v4/groups?search=${GROUP_NAME} | jq .[0].id)
+	GROUP_ID=$(curl -k --header "Private-Token: $TOKEN" -X GET https://gitlab-larbotech.gao/api/v4/groups?search=${GROUP_NAME} | jq -r -c --arg GROUP_NAME "$GROUP_NAME" '[ .[] | select( .name==$GROUP_NAME)] | .[].id')
 	
 	echo "goupe id : $GROUP_ID"
 	PROJECTS=$(curl -k --header "Private-Token: $TOKEN" -X GET https://gitlab-larbotech.gao/api/v4/groups/${GROUP_ID}/projects | jq -M '[.[] | {http_url_to_repo,name}]');
