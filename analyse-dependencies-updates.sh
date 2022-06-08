@@ -1,5 +1,66 @@
 #!/bin/bash
 
+
+red=`tput setaf 1`
+green=`tput setaf 2`
+reset=`tput sgr0`
+
+###########################################################################################
+###########################################################################################
+##                                                                                       ##
+##  #######  ##   ##  ###     ##   ###### ########  ##   #######   ###     ##   ######   ##
+##  ##       ##   ##  ####    ##  ##         ##     ##  ##     ##  ####    ##  ##    ##  ##
+##  ##       ##   ##  ## ##   ##  ##         ##     ##  ##     ##  ## ##   ##   ##       ##
+##  #####    ##   ##  ##  ##  ##  ##         ##     ##  ##     ##  ##  ##  ##     ##     ##
+##  ##       ##   ##  ##   ## ##  ##         ##     ##  ##     ##  ##   ## ##       ##   ##
+##  ##       ##   ##  ##    ####  ##         ##     ##  ##     ##  ##    ####  ##    ##  ##
+##  ##        #####   ##     ###   ######    ##     ##   #######   ##     ###   ######   ##
+##                                                                                       ##
+###########################################################################################
+###########################################################################################
+
+function affiche(){
+# $1: type de message ERROR, INFO, OK, SUCCESS, ...
+# $2: Message
+
+  local VERT="\\033[1;32m"
+  local NORMAL="\\033[0;39m"
+  local ROUGE="\\033[1;31m"
+  local ROSE="\\033[1;35m"
+  local BLEU="\\033[1;34m"
+  local BLANC="\\033[0;02m"
+  local BLANCLAIR="\\033[1;08m"
+  local JAUNE="\\033[1;33m"
+  local JAUNECLAIR="\\033[0;33m"
+  local CYAN="\\033[1;36m"
+
+  case "$1" in
+    "ERROR")
+      echo -ne "[${ROUGE}ERROR  ${NORMAL}] - " && echo "${2}"
+    ;;
+    "WARNING")
+      echo -ne "[${JAUNE}WARNING${NORMAL}] - " && echo "${2}"
+    ;;
+    "SKIP")
+      echo -ne "[${JAUNECLAIR}SKIP   ${NORMAL}] - " && echo "${2}"
+    ;;
+    "DEBUG")
+      [ ${debug} ] && echo -ne "[${ROSE}DEBUG  ${NORMAL}] - " && echo "${2}"
+    ;;
+    "INFO")
+      echo -ne "[${BLEU}INFO   ${NORMAL}] - " && echo "${2}"
+    ;;
+    "OK")
+      echo -ne "[${VERT}OK     ${NORMAL}] - " && echo "${2}"
+    ;;
+    "SUCCESS")
+      echo -ne "[${CYAN}SUCCESS${NORMAL}] - " && echo "${2}"
+    ;;
+    *)
+      echo -e "${2}"
+    ;;
+  esac
+}
 RESULT_DIR=/c/Users/mtoure/audit-program
 #PROJECTS=("projet1" "project2" "project-api")
 
@@ -7,6 +68,7 @@ nb_oc=0
 
 
 saveDependenciesUpdates () {
+  affiche "INFO" "clone projet $1 for $2" 
   git clone $1
   cd $2
   if [ -f "$POM" ]
